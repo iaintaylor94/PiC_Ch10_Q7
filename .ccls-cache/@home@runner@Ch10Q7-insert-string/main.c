@@ -6,30 +6,33 @@
 #include <stdlib.h>
 
 // Declare Functions
-char* insertString (char [], char [], int);
+void insertString (char [], char [], int, char **);
 
 int main(void) {
 
-  char first[] = "This is the first string";
+  char *first = "This is the first string";
   char second[] = "INSERT";
 
-  char *newString = insertString (first, second, 8);
+  printf ("Before insert:\n");
+  printf ("first: %s\n", first);
+  printf ("second: %s\n\n", second);
 
-//  printf ("text: %s\n", first); // Does not Work
+  insertString (first, second, 8, &first); // Probably could be better
+
+  printf ("After insert:\n");
   printf ("first: %s\n", first);
   printf ("second: %s\n", second);
-  printf ("newString: %s\n", newString);
   
   return 0;
 }
 
 // Define Functions
-char* insertString (char text[], char insert[], int index) {
+void insertString (char text[], char insert[], int index, char **output) {
   // Create returnString
   char *returnString = malloc(strlen(text) + strlen(insert) + 1);
 
   // Fill returnString
-  int i, 
+  int i, j;
   
   // Fill first "index" chars
   for (i = 0; i < index; i++) {
@@ -50,7 +53,5 @@ char* insertString (char text[], char insert[], int index) {
   returnString[strlen(text) + strlen(insert) + 1] = '\0';
   
   // Redirect text to returnString
-  text = returnString;
-
-  return returnString;
+  *output = returnString;
 }
